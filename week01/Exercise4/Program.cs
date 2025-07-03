@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 class Program
 {
     static void Main(string[] args)
     {
         List<int> numbers = new List<int>();
+        List<int> positiveNumbers = new List<int>();
         Console.WriteLine("Enter a list of numbers, type 0 when finished.");
         while (true)
         {
@@ -23,12 +25,16 @@ class Program
         // get the sum and the largest number
         int sum = 0;
         int largest = 0;
+        int smallest = 0;
+
         foreach (int number in numbers)
         {
             sum += number;
-            if (number > largest)
+            if (number > 0)
             {
-                largest = number;
+                positiveNumbers.Add(number);
+                largest = positiveNumbers.Max();
+                smallest = positiveNumbers.Min();
             }
         }
 
@@ -36,9 +42,16 @@ class Program
         int numbersLength = numbers.Count();
         double average = ((float)sum) / numbersLength;
 
+        numbers.Sort();
 
-        Console.WriteLine(sum);
-        Console.WriteLine(average);
-        Console.WriteLine(largest);        
+        Console.WriteLine($"The sum is: {sum}");
+        Console.WriteLine($"The average is: {average.ToString("F3")}");
+        Console.WriteLine($"The largest Number is: {largest}");
+        Console.WriteLine($"The smallest number is: {smallest}");
+        Console.WriteLine("The sorted list is:");
+        foreach (int number in numbers)
+        {
+            Console.WriteLine(number);
+        }
     }
 }
