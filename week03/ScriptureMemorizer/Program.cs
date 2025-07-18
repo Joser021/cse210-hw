@@ -31,37 +31,3 @@ class Program
         }
     }
 }
-        // Console.Clear();
-        // Console.WriteLine(scripture.GetDisplayText());
-        // Console.Write("Thank you");
-
-
-        // Console.WriteLine(word);
-
-        // while (true)
-        // {
-        //     Console.WriteLine("Press enter to continue or type 'quit' to finish:");
-        //     string test = Console.ReadLine();
-
-        //     if (test == "")
-        //     {
-        //         Console.Clear();
-        //         string[] palavras = word.Split();
-        //         // for (int i = 0; i < word.Length; i++)
-        //         // {
-        //         //     Console.WriteLine(palavras[i]);
-        //         // }
-        //         Console.WriteLine(new string('_', word.Length));
-        //     }
-        //     else if (test == "quit")
-        //     {
-        //         break;
-        //     }
-        //     else
-        //     {
-        //         Console.WriteLine("Sorry, try again");
-        //     }
-
-        // }
-//     }
-// }
