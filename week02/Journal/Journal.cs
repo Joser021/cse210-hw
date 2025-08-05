@@ -26,58 +26,49 @@ public class Journal
         {
             foreach (var entry in _entries)
             {
-                writer.WriteLine($"{entry._date}");
-                writer.WriteLine($"{entry._promptText}");
-                writer.WriteLine($"{entry._response}");
+                writer.WriteLine($"Date: {entry._date}");
+                writer.WriteLine($"Prompt: {entry._promptText}");
+                writer.WriteLine($"Response: {entry._response}");
+                writer.WriteLine();
             }
         }
         Console.WriteLine($"Entries sucessfully saved to {file}!");
     }
 
-    public void LoadFromFile(string file)
+public void LoadFromFile(string file)
+{
+    if (!File.Exists(file))
     {
-        if (!File.Exists(file))
+        Console.WriteLine("File not found!");
+        return;
+    }
+
+    _entries.Clear(); // Limpa as entradas existentes antes de carregar novas
+
+    using (StreamReader reader = new StreamReader(file))
+    {
+        while (!reader.EndOfStream)
         {
-            Console.WriteLine("File no found!");
-        }
+            string dateLine = reader.ReadLine();
+            string promptLine = reader.ReadLine();
+            string responseLine = reader.ReadLine();
+            reader.ReadLine(); // Lê a linha em branco de separação
 
-        using (StreamReader reader = new StreamReader(file))
-        {
-            string line;
-            Entry currentEntry = null;
-
-            while ((line = reader.ReadLine()) != null)
+            if (dateLine != null && promptLine != null && responseLine != null)
             {
-                if (line.StartsWith("Date:"))
-                {
-                    if (currentEntry != null)
-                    {
-                        _entries.Add(currentEntry);
-                    }
+                string date = dateLine.Replace("Date: ", "");
+                string prompt = promptLine.Replace("Prompt: ", "");
+                string response = responseLine.Replace("Response: ", "");
 
-                    string date = line.Substring(6).Trim();
-                    currentEntry = new Entry(string.Empty, string.Empty) { _date = date };
-                }
-                else if (line.StartsWith("Prompt:"))
+                Entry newEntry = new Entry(prompt, response)
                 {
-                    currentEntry._promptText = line.Substring(8).Trim();
-                }
-                else if (line.StartsWith("Response:"))
-                {
-                    currentEntry._response = line.Substring(10).Trim();
-                }
-                else if (string.IsNullOrWhiteSpace(line) && currentEntry != null)
-                {
-                    _entries.Add(currentEntry);
-                    currentEntry = null;
-                }
-            }
-
-            if (currentEntry != null)
-            {
-                _entries.Add(currentEntry);
+                    _date = date
+                };
+                _entries.Add(newEntry);
             }
         }
     }
+    Console.WriteLine($"Entries successfully loaded from {file}!");
+}
 }
 

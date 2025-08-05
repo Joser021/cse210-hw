@@ -10,6 +10,12 @@ public class Entry
         _promptText = prompt;
         _response = answer;
     }
+    public Entry(string date, string prompt, string answer)
+    {
+        _date = date;
+        _promptText = prompt;
+        _response = answer;
+    }
     public void Display()
     {
         Console.WriteLine($@"
