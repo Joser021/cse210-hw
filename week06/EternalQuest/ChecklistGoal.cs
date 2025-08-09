@@ -1,24 +1,36 @@
-class CheckListGoals : Goal
+class ChecklistGoal : Goal
 {
-    private int _amountCompleted;
-    private int _target;
-    private int _bonus;
+    public int _amountCompleted;
+    public int _target;
+    public int _bonus;
 
-    public CheckListGoals(string name, string description, int points, int amountCompleted, int target, int bonus) : base(name, description, points)
+    public ChecklistGoal(string name, string description, int points, int target, int bonus) : base(name, description, points)
     {
-
+        _amountCompleted = 0;
+        _target = target;
+        _bonus = bonus;
     }
 
     public override void RecordEvent()
     {
+        _amountCompleted++;
 
+        if (_amountCompleted == _target)
+        {
+            Console.WriteLine($"You got {_points} extra points!");
+        }
     }
     public override bool IsComplete()
     {
-        return false;
+        return _amountCompleted >= _target;
     }
-    public override string GetStringRepresetation()
+    public override string GetDetailsString()
     {
-        return "";
+        return $"{_shortName} {_description} -- Current completed {_amountCompleted}/{_target}";
+    }
+    public override string GetStringRepresentation()
+    {
+        string check = IsComplete() ? "[X]" : "[ ]";
+        return $"{check} {_shortName} {_description} -- Current completed {_amountCompleted}/{_target}";
     }
 }
