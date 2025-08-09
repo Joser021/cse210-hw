@@ -43,7 +43,7 @@ public void LoadFromFile(string file)
         return;
     }
 
-    _entries.Clear(); // Limpa as entradas existentes antes de carregar novas
+    _entries.Clear();
 
     using (StreamReader reader = new StreamReader(file))
     {
@@ -52,7 +52,7 @@ public void LoadFromFile(string file)
             string dateLine = reader.ReadLine();
             string promptLine = reader.ReadLine();
             string responseLine = reader.ReadLine();
-            reader.ReadLine(); // Lê a linha em branco de separação
+            reader.ReadLine();
 
             if (dateLine != null && promptLine != null && responseLine != null)
             {
